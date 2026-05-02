@@ -30,7 +30,7 @@ const Navbar = ({ activeId }) => {
           textTransform: "uppercase",
         }}
       >
-        Weeb<span style={{ color: "var(--accent2)" }}>Coders</span>
+        SHAIKH&nbsp;<span style={{ color: "var(--accent2)" }}>MAHBOOB</span>
       </div>
       <ul
         style={{ display: "flex", gap: 28, listStyle: "none" }}
