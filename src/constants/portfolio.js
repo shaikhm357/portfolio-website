@@ -8,10 +8,21 @@ export const NAV_LINKS = [
 
 export const HERO_DATA = {
   role: "MERN Stack Developer",
-  headline: ["Building the", "Web, One", "Component at a Time.", "fdevdsfdsf"],
-  accentWords: { "Web,": "accent", Component: "accent2" },
+  headline: [
+    "Architecting Systems That Scale.",
+    "Shipping Platforms, Not Just Features.",
+    "Building SaaS. Integrating AI. Owning Outcomes.",
+    "Turning Ideas Into Production-Ready Platforms.",
+    "Crafting Scalable Systems From Zero to Production.",
+    "Solving Complex Problems, One System at a Time.",
+    "Delivering Enterprise SaaS With AI at the Core.",
+    "Engineered for Scale. Built for Startups.",
+    "Transforming Startup Ideas Into Scalable Products.",
+    "Shipping Clean Code. Owning the Full Stack.",
+  ],
+  accentWords: { Architecting: "accent", Scale: "accent2", AI: "accent2" },
   subtitle:
-    "Full-stack developer with 4+ years of experience. DSA enthusiast. Anime aficionado. Crafting scalable digital systems where precision meets creativity — where otakus become engineers.",
+    "Full-stack developer with 4+ years building enterprise SaaS platforms across InsurTech and FinTech — spanning multi-tenant architectures, dynamic form engines, subscription systems, and LLM-powered workflows. Deep hands-on experience across React, Angular, Node.js, and PostgreSQL, with a consistent track record of owning complex features end-to-end in fast-moving product teams.",
   tags: ["MongoDB", "Express.js", "React", "Node.js", "JavaScript", "DSA"],
 };
 
@@ -46,27 +57,25 @@ export const ABOUT_DATA = {
 export const PROJECTS_DATA = [
   {
     num: "001",
-    name: "WeebWallet",
-    desc: "A personal finance tracker for creators — manage irregular income from YouTube, sponsorships & merch all in one dashboard.",
-    stack: ["React", "Node.js", "MongoDB", "Chart.js"],
-    demo: "#",
-    github: "#",
+    name: "Dev Camper",
+    desc: "A bootcamp discovery platform with authentication, listings, reviews, and location-aware browsing for developer education programs.",
+    stack: ["React", "Node.js", "Express", "MongoDB"],
+    demo: "https://dev-camper.onrender.com/",
   },
   {
     num: "002",
-    name: "DSA Visualizer",
-    desc: "Interactive visualizations of sorting algorithms and data structures — built to learn and teach DSA concepts with anime-themed UX.",
-    stack: ["React", "D3.js", "JavaScript"],
-    demo: "#",
-    github: "#",
+    name: "Pro Shop",
+    desc: "A full-stack ecommerce storefront with product browsing, cart flows, checkout, and order management built for a production-style retail experience.",
+    stack: ["React", "Redux", "Node.js", "MongoDB"],
+    demo: "https://myecom-1cz0.onrender.com/",
   },
   {
     num: "003",
-    name: "OtakuAuth",
-    desc: "Full-stack authentication system with JWT, refresh tokens, role-based access, and secure REST APIs. Production-ready boilerplate.",
-    stack: ["Express", "MongoDB", "JWT", "bcrypt"],
-    demo: "#",
-    github: "#",
+    name: "Coming Soon...",
+    desc: "A larger automation and GenAI platform focused on agentic workflows, business process orchestration, intelligent document handling, and AI-assisted operations from idea to execution.",
+    stack: ["Automation", "GenAI", "LLMs", "Workflow Engine", "SaaS"],
+    featured: true,
+    status: "In Progress",
   },
 ];
 

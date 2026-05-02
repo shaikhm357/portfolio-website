@@ -1,13 +1,14 @@
 const ProjectCard = ({ project }) => {
   return (
     <div
-      className="project-card reveal"
+      className={`project-card reveal${project.featured ? " project-card-featured" : ""}`}
       style={{
         border: "1px solid var(--line)",
         padding: 28,
         position: "relative",
         background: "rgba(13,33,55,.5)",
         overflow: "hidden",
+        gridColumn: project.featured ? "1 / -1" : undefined,
       }}
     >
       {/* Corner notch */}
@@ -52,7 +53,7 @@ const ProjectCard = ({ project }) => {
       <h3
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: "1rem",
+          fontSize: project.featured ? "clamp(1.35rem, 3vw, 2.4rem)" : "1rem",
           color: "var(--white)",
           marginBottom: 10,
           letterSpacing: "1px",
@@ -66,6 +67,7 @@ const ProjectCard = ({ project }) => {
           color: "var(--text-dim)",
           lineHeight: 1.7,
           marginBottom: 20,
+          maxWidth: project.featured ? 780 : undefined,
         }}
       >
         {project.desc}
@@ -93,31 +95,51 @@ const ProjectCard = ({ project }) => {
       </div>
 
       {/* Links */}
-      <div style={{ display: "flex", gap: 16 }}>
-        <a
-          href={project.demo}
-          style={{
-            fontSize: ".7rem",
-            letterSpacing: "2px",
-            color: "var(--accent)",
-            textDecoration: "none",
-            textTransform: "uppercase",
-          }}
-        >
-          → Live Demo
-        </a>
-        <a
-          href={project.github}
-          style={{
-            fontSize: ".7rem",
-            letterSpacing: "2px",
-            color: "var(--accent)",
-            textDecoration: "none",
-            textTransform: "uppercase",
-          }}
-        >
-          → GitHub
-        </a>
+      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+        {project.demo ? (
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              fontSize: ".7rem",
+              letterSpacing: "2px",
+              color: "var(--accent)",
+              textDecoration: "none",
+              textTransform: "uppercase",
+            }}
+          >
+            → Live Demo
+          </a>
+        ) : null}
+        {project.github ? (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              fontSize: ".7rem",
+              letterSpacing: "2px",
+              color: "var(--accent)",
+              textDecoration: "none",
+              textTransform: "uppercase",
+            }}
+          >
+            → GitHub
+          </a>
+        ) : null}
+        {project.status ? (
+          <span
+            style={{
+              fontSize: ".7rem",
+              letterSpacing: "2px",
+              color: "var(--accent2)",
+              textTransform: "uppercase",
+            }}
+          >
+            → {project.status}
+          </span>
+        ) : null}
       </div>
     </div>
   );

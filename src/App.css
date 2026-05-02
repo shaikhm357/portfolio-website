@@ -92,6 +92,68 @@ body::before {
 .anim-3 { animation: fadeInUp .8s ease .4s both; }
 .anim-4 { animation: fadeInUp .8s ease .6s both; }
 
+.typewriter-title {
+  min-height: 3.45em;
+  transition: min-height .2s ease;
+}
+
+.typing-text {
+  display: inline;
+  text-shadow: 0 0 22px rgba(79,195,247,.22);
+  transition: opacity .32s ease, filter .32s ease, transform .32s ease;
+}
+
+.typewriter-title.is-typing .typing-text {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+.typewriter-title.is-holding .typing-text {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+.typewriter-title.is-exiting .typing-text {
+  opacity: 0;
+  filter: blur(1px);
+  transform: translateY(-8px);
+}
+
+.typewriter-title.is-exiting .typing-cursor {
+  opacity: 0;
+  animation: none;
+  transition: opacity .22s ease;
+}
+
+.typing-word-white {
+  color: var(--white);
+}
+
+.typing-word-blue {
+  color: var(--accent);
+}
+
+.typing-word-orange {
+  color: var(--accent2);
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: .86em;
+  margin-left: 8px;
+  background: var(--accent2);
+  transform: translateY(.09em);
+  animation: typing-cursor-blink .8s step-end infinite;
+}
+
+@keyframes typing-cursor-blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
 /* Skill bar */
 .skill-bar-fill {
   height: 100%;
@@ -146,25 +208,28 @@ body::before {
   position: relative;
   min-height: 520px;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  padding-right: 86px;
+  align-items: center;
+  justify-content: center;
+  padding-right: 44px;
 }
 
 .hero-image-shell {
-  width: min(100%, 420px);
-  aspect-ratio: 4 / 5;
+  width: min(100%, 390px);
+  aspect-ratio: 3.7 / 5;
   border: 1px solid var(--line);
   background:
+    radial-gradient(circle at 50% 18%, rgba(255,152,0,.16), transparent 32%),
     linear-gradient(180deg, rgba(79,195,247,.08), rgba(13,33,55,.22)),
     rgba(10,25,44,.54);
-  border-radius: 48% 48% 42% 42% / 44% 44% 56% 56%;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 34px 100%, 0 calc(100% - 34px));
   overflow: hidden;
   position: relative;
   box-shadow:
-    0 0 0 7px rgba(42,100,150,.2),
-    0 0 0 14px rgba(79,195,247,.12),
-    0 0 0 22px rgba(255,152,0,.08);
+    0 0 0 1px rgba(79,195,247,.2),
+    12px 12px 0 rgba(42,100,150,.16),
+    -12px -12px 0 rgba(255,152,0,.07),
+    0 24px 60px rgba(0,0,0,.34);
   animation: profile-border-pulse 4s ease-in-out infinite;
 }
 
@@ -172,10 +237,11 @@ body::before {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: 50% 18%;
   display: block;
-  opacity: .86;
-  filter: saturate(.85) contrast(1.08);
+  opacity: .82;
+  filter: saturate(.72) contrast(1.14) brightness(.9) sepia(.08) hue-rotate(166deg);
+  mix-blend-mode: luminosity;
 }
 
 .hero-image-shell::before,
@@ -189,15 +255,19 @@ body::before {
 .hero-image-shell::before {
   inset: 18px;
   border: 1px dashed rgba(79,195,247,.36);
-  border-radius: 50%;
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
 }
 
 .hero-image-shell::after {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 38%;
-  background: linear-gradient(180deg, transparent, rgba(13,33,55,.9));
+  height: 100%;
+  background:
+    linear-gradient(135deg, rgba(79,195,247,.24), transparent 42%),
+    radial-gradient(circle at 52% 28%, transparent 0 28%, rgba(13,33,55,.24) 56%, rgba(13,33,55,.74) 100%),
+    linear-gradient(180deg, transparent 56%, rgba(13,33,55,.92));
+  mix-blend-mode: screen;
 }
 
 .hero-scanline {
@@ -211,15 +281,16 @@ body::before {
 
 .hero-profession-card {
   position: absolute;
-  left: min(48%, 250px);
-  right: 0;
-  bottom: 58px;
-  width: min(56%, 300px);
+  left: min(44%, 220px);
+  right: 18px;
+  bottom: 46px;
+  width: min(58%, 310px);
   margin: 0;
   padding: 18px;
   border: 1px solid rgba(79,195,247,.52);
   background: rgba(11,30,51,.88);
   backdrop-filter: blur(10px);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
   z-index: 4;
 }
 
@@ -265,15 +336,17 @@ body::before {
 @keyframes profile-border-pulse {
   0%, 100% {
     box-shadow:
-      0 0 0 7px rgba(42,100,150,.2),
-      0 0 0 14px rgba(79,195,247,.12),
-      0 0 0 22px rgba(255,152,0,.08);
+      0 0 0 1px rgba(79,195,247,.2),
+      12px 12px 0 rgba(42,100,150,.16),
+      -12px -12px 0 rgba(255,152,0,.07),
+      0 24px 60px rgba(0,0,0,.34);
   }
   50% {
     box-shadow:
-      0 0 0 9px rgba(42,100,150,.32),
-      0 0 0 18px rgba(79,195,247,.2),
-      0 0 0 28px rgba(255,152,0,.13);
+      0 0 0 1px rgba(79,195,247,.34),
+      16px 16px 0 rgba(42,100,150,.2),
+      -16px -16px 0 rgba(255,152,0,.11),
+      0 28px 70px rgba(0,0,0,.38);
   }
 }
 
@@ -288,6 +361,10 @@ body::before {
     max-width: 100% !important;
   }
 
+  .typewriter-title {
+    min-height: 3.6em;
+  }
+
   .hero-visual {
     min-height: 420px;
     align-items: center;
@@ -296,7 +373,7 @@ body::before {
   }
 
   .hero-image-shell {
-    width: min(100%, 360px);
+    width: min(100%, 340px);
   }
 
   .band-section {
@@ -332,6 +409,10 @@ body::before {
     gap: 24px !important;
   }
 
+  .hero-visual {
+    order: -1;
+  }
+
   .hero-kicker {
     font-size: .56rem !important;
     letter-spacing: 2.5px !important;
@@ -342,6 +423,10 @@ body::before {
     font-size: clamp(2rem, 11vw, 3rem) !important;
     line-height: 1.06 !important;
     letter-spacing: 1px !important;
+  }
+
+  .typewriter-title {
+    min-height: 4.45em;
   }
 
   .hero-subtitle {
@@ -384,9 +469,10 @@ body::before {
   }
 
   .hero-image-shell {
-    width: clamp(184px, 64vw, 260px);
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
+    width: clamp(210px, 70vw, 290px);
+    aspect-ratio: 3.7 / 5;
+    border-radius: 0;
+    clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
   }
 
   .hero-image-shell::before {
@@ -394,11 +480,11 @@ body::before {
   }
 
   .hero-image-shell::after {
-    height: 24%;
+    height: 100%;
   }
 
   .hero-image-shell img {
-    object-position: center top;
+    object-position: 50% 16%;
   }
 
   .hero-profession-card {
@@ -407,8 +493,9 @@ body::before {
     right: auto;
     bottom: auto;
     width: min(100%, 300px);
-    margin: -18px auto 0;
+    margin: -28px auto 0;
     padding: 14px;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
   }
 
   .hero-card-label {
@@ -461,6 +548,10 @@ body::before {
     gap: 16px !important;
   }
 
+  .project-card-featured {
+    grid-column: auto !important;
+  }
+
   .project-card,
   .skill-group,
   .spec-card,
@@ -485,12 +576,16 @@ body::before {
     font-size: clamp(1.82rem, 10.5vw, 2.45rem) !important;
   }
 
+  .typewriter-title {
+    min-height: 4.55em;
+  }
+
   .hero-visual {
     min-height: auto;
   }
 
   .hero-image-shell {
-    width: clamp(170px, 62vw, 220px);
+    width: clamp(190px, 68vw, 240px);
   }
 
   .hero-profession-card {

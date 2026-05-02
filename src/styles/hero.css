@@ -99,6 +99,73 @@
   color: var(--accent2);
 }
 
+.typewriter-title {
+  min-height: 3.45em;
+  transition: min-height 0.2s ease;
+}
+
+.typing-text {
+  display: inline;
+  text-shadow: 0 0 22px rgba(79, 195, 247, 0.22);
+  transition: opacity 0.32s ease, filter 0.32s ease, transform 0.32s ease;
+}
+
+.typewriter-title.is-typing .typing-text {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+.typewriter-title.is-holding .typing-text {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+.typewriter-title.is-exiting .typing-text {
+  opacity: 0;
+  filter: blur(1px);
+  transform: translateY(-8px);
+}
+
+.typewriter-title.is-exiting .typing-cursor {
+  opacity: 0;
+  animation: none;
+  transition: opacity 0.22s ease;
+}
+
+.typing-word-white {
+  color: var(--white);
+}
+
+.typing-word-blue {
+  color: var(--accent);
+}
+
+.typing-word-orange {
+  color: var(--accent2);
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.86em;
+  margin-left: 8px;
+  background: var(--accent2);
+  transform: translateY(0.09em);
+  animation: typing-cursor-blink 0.8s step-end infinite;
+}
+
+@keyframes typing-cursor-blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 .hero-subtitle {
   font-family: "Special Elite", cursive;
   font-size: 1.1rem;

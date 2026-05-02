@@ -1,11 +1,64 @@
+import { useEffect, useState } from "react";
 import { HERO_DATA } from "../../constants/portfolio";
 import Tag from "../ui_premitives/Tag";
 import Button from "../ui_premitives/Button";
-
-const heroImage =
-  "https://media.licdn.com/dms/image/v2/D4D35AQGKSWAXgnkNSQ/profile-framedphoto-shrink_400_400/B4DZi6PuT1GgAg-/0/1755471341100?e=1778263200&v=beta&t=RlqXWI8Og1sE9mgw75oAVlsgn2S1oa2dOGsqzKQBJOc";
+import heroImage from "../../assets/hero-portrait.jpeg";
 
 const Hero = () => {
+  const [headlineIndex, setHeadlineIndex] = useState(0);
+  const [visibleLength, setVisibleLength] = useState(0);
+  const [headlinePhase, setHeadlinePhase] = useState("typing");
+
+  const activeHeadline = HERO_DATA.headline[headlineIndex];
+  const typedHeadline = activeHeadline.slice(0, visibleLength);
+
+  useEffect(() => {
+    const isComplete = visibleLength === activeHeadline.length;
+    const delay = headlinePhase === "holding" ? 1400 : headlinePhase === "exiting" ? 360 : 42;
+
+    const timer = window.setTimeout(() => {
+      if (headlinePhase === "typing" && isComplete) {
+        setHeadlinePhase("holding");
+        return;
+      }
+
+      if (headlinePhase === "holding") {
+        setHeadlinePhase("exiting");
+        return;
+      }
+
+      if (headlinePhase === "exiting") {
+        setHeadlineIndex((current) => (current + 1) % HERO_DATA.headline.length);
+        setVisibleLength(0);
+        setHeadlinePhase("typing");
+        return;
+      }
+
+      setVisibleLength((current) => Math.min(current + 1, activeHeadline.length));
+    }, delay);
+
+    return () => window.clearTimeout(timer);
+  }, [activeHeadline.length, headlinePhase, visibleLength]);
+
+  const renderTypedHeadline = () => {
+    let wordIndex = 0;
+
+    return typedHeadline.split(/(\s+)/).map((part, index) => {
+      if (!part.trim()) {
+        return part;
+      }
+
+      const tone = ["white", "blue", "orange"][wordIndex % 3];
+      wordIndex += 1;
+
+      return (
+        <span className={`typing-word typing-word-${tone}`} key={`${part}-${index}`}>
+          {part}
+        </span>
+      );
+    });
+  };
+
   return (
     <section
       id="hero"
@@ -13,7 +66,7 @@ const Hero = () => {
       style={{
         minHeight: "100vh",
         display: "grid",
-        gridTemplateColumns: "minmax(0, 1.15fr) minmax(280px, .85fr)",
+        gridTemplateColumns: "minmax(0, 1.35fr) minmax(280px, .65fr)",
         alignItems: "center",
         gap: 56,
         padding: "100px 80px 60px",
@@ -44,7 +97,7 @@ const Hero = () => {
       ))}
 
       {/* Main content */}
-      <div className="hero-copy" style={{ maxWidth: 760, width: "100%", position: "relative" }}>
+      <div className="hero-copy" style={{ maxWidth: 920, width: "100%", position: "relative" }}>
         <div
           className="hero-kicker anim-1"
           style={{
@@ -60,20 +113,20 @@ const Hero = () => {
         </div>
 
         <h1
-          className="hero-title anim-1"
+          className={`hero-title typewriter-title is-${headlinePhase} anim-1`}
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(2.4rem, 6vw, 5rem)",
+            fontSize: "clamp(2.35rem, 4.8vw, 4.35rem)",
             fontWeight: 900,
             color: "var(--white)",
             lineHeight: 1.1,
             letterSpacing: "2px",
           }}
         >
-          Building the &nbsp;
-          <span style={{ color: "var(--accent)" }}>Web</span>, One
-          <br />
-          <span style={{ color: "var(--accent2)" }}>Component</span> at a Time.
+          <span className="typing-text" aria-live="polite">
+            {renderTypedHeadline()}
+          </span>
+          <span className="typing-cursor" aria-hidden="true" />
         </h1>
 
         <p
@@ -111,7 +164,7 @@ const Hero = () => {
           <Button href="#projects" variant="primary">
             View Projects
           </Button>
-          <Button href="#" variant="secondary" download>
+          <Button href="https://drive.google.com/file/d/1z-F2WqE23-SbSlO6NTxbMIQM8HPy3Ubf/view?usp=drive_link" variant="secondary" download>
             Download Resume ↓
           </Button>
         </div>
