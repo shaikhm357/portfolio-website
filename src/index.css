@@ -1,0 +1,68 @@
+:root {
+  --blue: #1a3a5c;
+  --light-blue: #2d6a9f;
+  --grid-blue: #1e4d7b;
+  --line: #2a6496;
+  --accent: #4fc3f7;
+  --accent2: #ff9800;
+  --bg: #0d2137;
+  --paper: #0b1e33;
+  --text: #a8d8f0;
+  --text-dim: #5a8db0;
+  --white: #d6eeff;
+  --red-mark: #e74c3c;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Share Tech Mono', monospace;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* Blueprint Grid Background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(44, 106, 158, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(44, 106, 158, 0.15) 1px, transparent 1px),
+    linear-gradient(rgba(44, 106, 158, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(44, 106, 158, 0.05) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 20px 20px, 20px 20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Noise texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+section, nav, footer { position: relative; z-index: 1; }
+
+ /* Crosshair cursor dot */
+ .cursor-dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s;
+  box-shadow: 0 0 8px var(--accent);
+}
+
