@@ -37,13 +37,18 @@ const Contact = () => {
 
   const contactItems = [
     {
+      label: "Phone",
+      value: CONTACT_DATA.phone,
+      href: `tel:${CONTACT_DATA.phone.replace(/-/g, "")}`,
+    },
+    {
       label: "Email",
       value: CONTACT_DATA.email,
       href: `mailto:${CONTACT_DATA.email}`,
     },
-    { label: "GitHub", value: CONTACT_DATA.github, href: "#" },
-    { label: "LinkedIn", value: CONTACT_DATA.linkedin, href: "#" },
-    { label: "YouTube", value: CONTACT_DATA.youtube, href: "#" },
+    { label: "GitHub", value: CONTACT_DATA.github, href: `https://${CONTACT_DATA.github}` },
+    { label: "LinkedIn", value: CONTACT_DATA.linkedin, href: `https://www.${CONTACT_DATA.linkedin}` },
+    { label: "Location", value: CONTACT_DATA.location, href: "#" },
     {
       label: "Resume",
       value: "Download PDF ↓",
@@ -190,17 +195,21 @@ const Contact = () => {
                 {label}
               </span>
               <span style={{ fontSize: ".82rem", color: "var(--accent)" }}>
-                <a
-                  href={href}
-                  download={download}
-                  style={{ color: "inherit", textDecoration: "none" }}
-                  onMouseEnter={(e) =>
-                    (e.target.style.textDecoration = "underline")
-                  }
-                  onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
-                >
-                  {value}
-                </a>
+                {href === "#" ? (
+                  value
+                ) : (
+                  <a
+                    href={href}
+                    download={download}
+                    style={{ color: "inherit", textDecoration: "none" }}
+                    onMouseEnter={(e) =>
+                      (e.target.style.textDecoration = "underline")
+                    }
+                    onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
+                  >
+                    {value}
+                  </a>
+                )}
               </span>
             </div>
           ))}

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 export function useCursorDot() {
   useEffect(() => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     const dot = document.getElementById("cursor-dot");
     if (!dot) return;
     const move = (e) => {

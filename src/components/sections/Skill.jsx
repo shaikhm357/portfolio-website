@@ -11,7 +11,7 @@ const Skill = () => {
       className="page-section"
       style={{ padding: "100px 40px", maxWidth: 1100, margin: "0 auto" }}
     >
-      <SectionHeader number="03" title="Skills" />
+      <SectionHeader number="04" title="Skills" />
       <div
         style={{
           display: "grid",

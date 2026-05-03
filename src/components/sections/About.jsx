@@ -32,9 +32,15 @@ const About = () => {
             >
               {segments.map((seg, j) =>
                 j % 2 === 1 ? (
-                  <span key={j} style={{ color: "var(--accent)" }}>
+                  <strong
+                    key={j}
+                    style={{
+                      color: i % 2 === 0 ? "var(--accent)" : "var(--accent2)",
+                      fontWeight: 700,
+                    }}
+                  >
                     {seg}
-                  </span>
+                  </strong>
                 ) : (
                   seg
                 )

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HERO_DATA } from "../../constants/portfolio";
+import { CONTACT_DATA, HERO_DATA } from "../../constants/portfolio";
 import Tag from "../ui_premitives/Tag";
 import Button from "../ui_premitives/Button";
 import heroImage from "../../assets/hero-portrait.jpeg";
@@ -189,7 +189,7 @@ const Hero = () => {
           <Button href="#projects" variant="primary">
             View Projects
           </Button>
-          <Button href="https://drive.google.com/file/d/1z-F2WqE23-SbSlO6NTxbMIQM8HPy3Ubf/view?usp=drive_link" variant="secondary" download>
+          <Button href={CONTACT_DATA.resume} variant="secondary" download>
             Download Resume ↓
           </Button>
         </div>
@@ -203,11 +203,11 @@ const Hero = () => {
         <div className="hero-profession-card">
           <span className="hero-card-label">CURRENT ROLE</span>
           <strong>{HERO_DATA.role}</strong>
-          <p>Frontend-focused MERN developer crafting clean product interfaces.</p>
+          <p>Enterprise SaaS engineer building secure APIs, AI workflows, and production platforms.</p>
           <div>
             <span>React</span>
             <span>Node</span>
-            <span>MongoDB</span>
+            <span>Postgres</span>
           </div>
         </div>
       </aside>

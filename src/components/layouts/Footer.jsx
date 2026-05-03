@@ -15,7 +15,7 @@ const Footer = () => {
       }}
     >
       <div>
-        ◈ <span style={{ color: "var(--accent)" }}>WEEBCODERS</span> — PORTFOLIO
+        ◈ <span style={{ color: "var(--accent)" }}>MAHBOOB SHAIKH</span> — PORTFOLIO
         v2.0
       </div>
       <div className="hide-mobile">
