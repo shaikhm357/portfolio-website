@@ -1,43 +1,98 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef } from "react";
 import Button from "../ui_premitives/Button";
 import { CONTACT_DATA } from "../../constants/portfolio";
 import SectionHeader from "../ui_premitives/SectionHeader";
 
 const WEBHOOK_URL = "https://hook.eu1.make.com/51bcjc32db5o6t5mm3bilzozf3e8st3x";
+const MAX_NAME_LENGTH = 100;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_MESSAGE_LENGTH = 2000;
+const MIN_SUBMIT_INTERVAL = 30000;
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+const ALLOWED_CHARS = /^[a-zA-Z0-9\s.,!?'"@#$%&*()\-+/=:;<>{}[\]\\_|~`]+$/;
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState({});
+  const lastSubmitRef = useRef(0);
+
+  const sanitize = (str) => str.replace(/<[^>]*>/g, "").trim();
+
+  const validate = useCallback(() => {
+    const errs = {};
+    const name = sanitize(form.name);
+    const email = sanitize(form.email);
+    const message = sanitize(form.message);
+
+    if (!name || name.length < 2) errs.name = "Name must be at least 2 characters";
+    if (name.length > MAX_NAME_LENGTH) errs.name = "Name is too long";
+    if (!ALLOWED_CHARS.test(name)) errs.name = "Name contains invalid characters";
+
+    if (!email) errs.email = "Email is required";
+    if (email.length > MAX_EMAIL_LENGTH) errs.email = "Email is too long";
+    if (!EMAIL_REGEX.test(email)) errs.email = "Invalid email format";
+
+    if (!message) errs.message = "Message is required";
+    if (message.length < 10) errs.message = "Message must be at least 10 characters";
+    if (message.length > MAX_MESSAGE_LENGTH) errs.message = "Message is too long";
+    if (!ALLOWED_CHARS.test(message)) errs.message = "Message contains invalid characters";
+
+    setFieldErrors(errs);
+    return Object.keys(errs).length === 0;
+  }, [form]);
 
   const handleChange = useCallback((e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    const sanitized = sanitize(value);
+    setForm((prev) => ({ ...prev, [name]: sanitized }));
+    setFieldErrors((prev) => {
+      const next = { ...prev };
+      delete next[name];
+      return next;
+    });
   }, []);
 
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
+      setError("");
+
+      if (!validate()) return;
+
+      const now = Date.now();
+      if (now - lastSubmitRef.current < MIN_SUBMIT_INTERVAL) {
+        setError("Please wait before sending another message");
+        return;
+      }
+      lastSubmitRef.current = now;
+
       setSubmitting(true);
-      setError(false);
       try {
         const response = await fetch(WEBHOOK_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify({
+            name: sanitize(form.name),
+            email: sanitize(form.email),
+            message: sanitize(form.message),
+            timestamp: new Date().toISOString(),
+          }),
         });
         if (!response.ok) throw new Error("Failed to send");
         setSent(true);
         setForm({ name: "", email: "", message: "" });
         setTimeout(() => setSent(false), 4000);
       } catch {
-        setError(true);
-        setTimeout(() => setError(false), 4000);
+        setError("Failed to transmit. Please try again.");
+        setTimeout(() => setError(""), 4000);
       } finally {
         setSubmitting(false);
       }
     },
-    [form]
+    [form, validate]
   );
 
   const inputStyle = {
@@ -115,7 +170,7 @@ const Contact = () => {
                 style={{
                   fontSize: ".62rem",
                   letterSpacing: "3px",
-                  color: "var(--accent)",
+                  color: fieldErrors[name] ? "var(--red-mark)" : "var(--accent)",
                   textTransform: "uppercase",
                   display: "block",
                   marginBottom: 8,
@@ -130,9 +185,17 @@ const Contact = () => {
                 value={form[name]}
                 onChange={handleChange}
                 placeholder={placeholder}
-                style={inputStyle}
+                style={{
+                  ...inputStyle,
+                  borderColor: fieldErrors[name] ? "var(--red-mark)" : undefined,
+                }}
                 required
               />
+              {fieldErrors[name] && (
+                <span style={{ fontSize: ".65rem", color: "var(--red-mark)", marginTop: 4, display: "block" }}>
+                  {fieldErrors[name]}
+                </span>
+              )}
             </div>
           ))}
           <div>
@@ -140,7 +203,7 @@ const Contact = () => {
               style={{
                 fontSize: ".62rem",
                 letterSpacing: "3px",
-                color: "var(--accent)",
+                color: fieldErrors.message ? "var(--red-mark)" : "var(--accent)",
                 textTransform: "uppercase",
                 display: "block",
                 marginBottom: 8,
@@ -154,17 +217,32 @@ const Contact = () => {
               value={form.message}
               onChange={handleChange}
               placeholder="Let's build something..."
-              style={{ ...inputStyle, height: 120, resize: "none" }}
+              style={{
+                ...inputStyle,
+                height: 120,
+                resize: "none",
+                borderColor: fieldErrors.message ? "var(--red-mark)" : undefined,
+              }}
               required
             />
+            {fieldErrors.message && (
+              <span style={{ fontSize: ".65rem", color: "var(--red-mark)", marginTop: 4, display: "block" }}>
+                {fieldErrors.message}
+              </span>
+            )}
           </div>
+          {error && (
+            <span style={{ fontSize: ".72rem", color: "var(--red-mark)", display: "block" }}>
+              {error}
+            </span>
+          )}
           <Button
             type="submit"
             variant="primary"
             style={{ alignSelf: "flex-start" }}
             disabled={submitting}
           >
-            {submitting ? "Transmitting..." : sent ? "Transmitted ✓" : error ? "Failed — Retry →" : "Transmit Message →"}
+            {submitting ? "Transmitting..." : sent ? "Transmitted ✓" : "Transmit Message →"}
           </Button>
         </form>
 
