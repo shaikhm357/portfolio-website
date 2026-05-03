@@ -3,6 +3,7 @@ import { CONTACT_DATA, HERO_DATA } from "../../constants/portfolio";
 import Tag from "../ui_premitives/Tag";
 import Button from "../ui_premitives/Button";
 import heroImage from "../../assets/h1.jpg";
+import mobileHeroImage from "../../assets/mobile-view-profile.jpg";
 
 const Hero = () => {
   const [headlineIndex, setHeadlineIndex] = useState(0);
@@ -230,7 +231,10 @@ const Hero = () => {
         }}
       >
         <div className="hero-image-shell">
-          <img src={heroImage} alt="Developer workspace placeholder" />
+          <picture>
+            <source media="(max-width: 768px)" srcSet={mobileHeroImage} />
+            <img src={heroImage} alt="Developer workspace placeholder" />
+          </picture>
           <span className="hero-scanline" />
         </div>
         <div className="hero-profession-card">

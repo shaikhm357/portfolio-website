@@ -3,22 +3,39 @@ import Button from "../ui_premitives/Button";
 import { CONTACT_DATA } from "../../constants/portfolio";
 import SectionHeader from "../ui_premitives/SectionHeader";
 
+const WEBHOOK_URL = "https://hook.eu1.make.com/51bcjc32db5o6t5mm3bilzozf3e8st3x";
+
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = useCallback((e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }, []);
 
   const handleSubmit = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
-      // TODO: wire up your form service (EmailJS, Formspree, etc.)
-      console.log("Form submitted:", form);
-      setSent(true);
-      setForm({ name: "", email: "", message: "" });
-      setTimeout(() => setSent(false), 4000);
+      setSubmitting(true);
+      setError(false);
+      try {
+        const response = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        });
+        if (!response.ok) throw new Error("Failed to send");
+        setSent(true);
+        setForm({ name: "", email: "", message: "" });
+        setTimeout(() => setSent(false), 4000);
+      } catch {
+        setError(true);
+        setTimeout(() => setError(false), 4000);
+      } finally {
+        setSubmitting(false);
+      }
     },
     [form]
   );
@@ -145,8 +162,9 @@ const Contact = () => {
             type="submit"
             variant="primary"
             style={{ alignSelf: "flex-start" }}
+            disabled={submitting}
           >
-            {sent ? "Transmitted ✓" : "Transmit Message →"}
+            {submitting ? "Transmitting..." : sent ? "Transmitted ✓" : error ? "Failed — Retry →" : "Transmit Message →"}
           </Button>
         </form>
 
