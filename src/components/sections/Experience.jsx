@@ -25,9 +25,11 @@ const Experience = () => {
                 padding: 28,
                 position: "relative",
                 overflow: "hidden",
+                transition: "border-color .3s, transform .3s, box-shadow .3s",
               }}
             >
               <span
+                className="card-corner"
                 style={{
                   position: "absolute",
                   top: 0,
@@ -38,6 +40,19 @@ const Experience = () => {
                   borderWidth: "0 28px 28px 0",
                   borderColor: "transparent var(--accent2) transparent transparent",
                   opacity: 0.9,
+                  transition: "border-color .3s",
+                }}
+              />
+              <span
+                className="card-glow"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    "linear-gradient(135deg, rgba(79,195,247,.04) 0%, transparent 60%)",
+                  opacity: 0,
+                  transition: "opacity .3s",
+                  pointerEvents: "none",
                 }}
               />
               <div

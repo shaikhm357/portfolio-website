@@ -21,17 +21,47 @@ const Skill = () => {
         className="skills-grid"
       >
         {SKILLS_DATA.map(({ category, items }) => (
-          <div
-            key={category}
-            className="skill-group reveal"
-            style={{
-              padding: 24,
-              border: "1px solid var(--line)",
-              background: "rgba(13,33,55,.4)",
-            }}
-          >
             <div
+              key={category}
+              className="skill-group skill-card reveal"
               style={{
+                padding: 24,
+                border: "1px solid var(--line)",
+                background: "rgba(13,33,55,.4)",
+                position: "relative",
+                overflow: "hidden",
+                transition: "border-color .3s, transform .3s, box-shadow .3s",
+              }}
+            >
+              <span
+                className="card-corner"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  width: 0,
+                  height: 0,
+                  borderStyle: "solid",
+                  borderWidth: "0 28px 28px 0",
+                  borderColor: "transparent var(--accent2) transparent transparent",
+                  opacity: 0.9,
+                  transition: "border-color .3s",
+                }}
+              />
+              <span
+                className="card-glow"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    "linear-gradient(135deg, rgba(79,195,247,.04) 0%, transparent 60%)",
+                  opacity: 0,
+                  transition: "opacity .3s",
+                  pointerEvents: "none",
+                }}
+              />
+              <div
+                style={{
                 fontSize: ".65rem",
                 letterSpacing: "3px",
                 color: "var(--accent2)",

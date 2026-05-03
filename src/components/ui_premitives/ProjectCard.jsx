@@ -22,7 +22,7 @@ const ProjectCard = ({ project }) => {
           height: 0,
           borderStyle: "solid",
           borderWidth: "0 28px 28px 0",
-          borderColor: "transparent var(--line) transparent transparent",
+          borderColor: "transparent var(--accent2) transparent transparent",
           transition: "border-color .3s",
         }}
       />

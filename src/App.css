@@ -192,6 +192,16 @@ body::before {
 .project-card:hover .card-corner { border-color: transparent var(--accent) transparent transparent !important; }
 .project-card:hover .card-glow { opacity: 1 !important; }
 
+/* Experience card hover */
+.experience-card:hover { border-color: var(--accent) !important; transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.3); }
+.experience-card:hover .card-corner { border-color: transparent var(--accent) transparent transparent !important; }
+.experience-card:hover .card-glow { opacity: 1 !important; }
+
+/* Skill card hover */
+.skill-card:hover { border-color: var(--accent) !important; transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.3); }
+.skill-card:hover .card-corner { border-color: transparent var(--accent) transparent transparent !important; }
+.skill-card:hover .card-glow { opacity: 1 !important; }
+
 /* YT card hover */
 .yt-card { transition: border-color .3s, transform .3s; }
 .yt-card:hover { border-color: var(--accent2) !important; transform: translateY(-2px); }
@@ -246,13 +256,13 @@ body::before {
     -12px -12px 0 rgba(255,152,0,.07),
     0 24px 60px rgba(0,0,0,.34);
   animation: profile-border-pulse 4s ease-in-out infinite;
+  margin-bottom: -18px;
 }
 
 .hero-image-shell img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 18%;
   display: block;
   opacity: .82;
   filter: saturate(.72) contrast(1.14) brightness(.9) sepia(.08) hue-rotate(166deg);
@@ -295,11 +305,11 @@ body::before {
 }
 
 .hero-profession-card {
-  position: absolute;
-  left: min(44%, 220px);
-  right: 18px;
-  bottom: 46px;
-  width: min(58%, 310px);
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  width: min(100%, 390px);
   margin: 0;
   padding: 18px;
   border: 1px solid rgba(79,195,247,.52);
@@ -490,6 +500,21 @@ body::before {
     clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
   }
 
+  .hero-image-shell img {
+    object-fit: cover;
+  }
+
+  .hero-profession-card {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: clamp(210px, 70vw, 290px);
+    margin: 0;
+    padding: 14px;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
   .hero-image-shell::before {
     inset: 12px;
   }
@@ -507,8 +532,8 @@ body::before {
     left: auto;
     right: auto;
     bottom: auto;
-    width: min(100%, 300px);
-    margin: -28px auto 0;
+    width: clamp(210px, 70vw, 290px);
+    margin: 0;
     padding: 14px;
     clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
   }
@@ -604,6 +629,6 @@ body::before {
   }
 
   .hero-profession-card {
-    width: min(100%, 260px);
+    width: clamp(190px, 68vw, 240px);
   }
 }
