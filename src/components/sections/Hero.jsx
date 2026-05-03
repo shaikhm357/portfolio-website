@@ -10,11 +10,10 @@ const Hero = () => {
   const [headlinePhase, setHeadlinePhase] = useState("typing");
 
   const activeHeadline = HERO_DATA.headline[headlineIndex];
-  const typedHeadline = activeHeadline.slice(0, visibleLength);
 
   useEffect(() => {
     const isComplete = visibleLength === activeHeadline.length;
-    const delay = headlinePhase === "holding" ? 1400 : headlinePhase === "exiting" ? 360 : 42;
+    const delay = headlinePhase === "holding" ? 1700 : headlinePhase === "exiting" ? 560 : 76;
 
     const timer = window.setTimeout(() => {
       if (headlinePhase === "typing" && isComplete) {
@@ -40,20 +39,46 @@ const Hero = () => {
     return () => window.clearTimeout(timer);
   }, [activeHeadline.length, headlinePhase, visibleLength]);
 
+  const renderCursor = () => <span className="typing-cursor" aria-hidden="true" />;
+
   const renderTypedHeadline = () => {
     let wordIndex = 0;
 
-    return typedHeadline.split(/(\s+)/).map((part, index) => {
+    let letterOffset = 0;
+
+    return activeHeadline.split(/(\s+)/).map((part, index) => {
       if (!part.trim()) {
-        return part;
+        const start = letterOffset;
+        const end = start + part.length;
+        const visibleChars = Math.max(0, Math.min(visibleLength - start, part.length));
+        const hasCursor = visibleLength >= start && visibleLength < end;
+        letterOffset = end;
+
+        return (
+          <span className="typing-space" key={`space-${index}`}>
+            {part.slice(0, visibleChars)}
+            {hasCursor && renderCursor()}
+            <span className="typing-hidden" aria-hidden="true">
+              {part.slice(visibleChars)}
+            </span>
+          </span>
+        );
       }
 
       const tone = ["white", "blue", "orange"][wordIndex % 3];
       wordIndex += 1;
+      const start = letterOffset;
+      const end = start + part.length;
+      const visibleLetters = Math.max(0, Math.min(visibleLength - start, part.length));
+      letterOffset = end;
 
       return (
         <span className={`typing-word typing-word-${tone}`} key={`${part}-${index}`}>
-          {part}
+          <span>{part.slice(0, visibleLetters)}</span>
+          {visibleLength >= start && visibleLength < end && renderCursor()}
+          <span className="typing-hidden" aria-hidden="true">
+            {part.slice(visibleLetters)}
+          </span>
         </span>
       );
     });
@@ -126,7 +151,7 @@ const Hero = () => {
           <span className="typing-text" aria-live="polite">
             {renderTypedHeadline()}
           </span>
-          <span className="typing-cursor" aria-hidden="true" />
+          {visibleLength === activeHeadline.length && renderCursor()}
         </h1>
 
         <p
