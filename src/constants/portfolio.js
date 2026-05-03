@@ -12,7 +12,7 @@ export const HERO_DATA = {
     "Architecting Systems That Scale.",
     "Shipping Platforms, Not Just Features.",
     "Building SaaS. Integrating AI. Owning Outcomes.",
-    "Turning Ideas Into Production-Ready Platforms.",
+    "Turning Ideas Into Production Ready Platforms.",
     "Crafting Scalable Systems From Zero to Production.",
     "Solving Complex Problems, One System at a Time.",
     "Delivering Enterprise SaaS With AI at the Core.",
