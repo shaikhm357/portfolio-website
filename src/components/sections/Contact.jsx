@@ -19,13 +19,13 @@ const Contact = () => {
   const [fieldErrors, setFieldErrors] = useState({});
   const lastSubmitRef = useRef(0);
 
-  const sanitize = (str) => str.replace(/<[^>]*>/g, "").trim();
+  const sanitize = (str) => str.replace(/<[^>]*>/g, "");
 
   const validate = useCallback(() => {
     const errs = {};
-    const name = sanitize(form.name);
-    const email = sanitize(form.email);
-    const message = sanitize(form.message);
+    const name = sanitize(form.name).trim();
+    const email = sanitize(form.email).trim();
+    const message = sanitize(form.message).trim();
 
     if (!name || name.length < 2) errs.name = "Name must be at least 2 characters";
     if (name.length > MAX_NAME_LENGTH) errs.name = "Name is too long";
@@ -75,9 +75,9 @@ const Contact = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            name: sanitize(form.name),
-            email: sanitize(form.email),
-            message: sanitize(form.message),
+            name: sanitize(form.name).trim(),
+            email: sanitize(form.email).trim(),
+            message: sanitize(form.message).trim(),
             timestamp: new Date().toISOString(),
           }),
         });
