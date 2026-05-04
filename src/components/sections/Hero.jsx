@@ -242,12 +242,12 @@ const Hero = () => {
           <strong>{HERO_DATA.role}</strong>
           <p>
             Enterprise SaaS engineer building secure APIs, AI workflows, and
-            production platforms.
+            production ready platforms.
           </p>
           <div>
-            <span>React</span>
-            <span>Node</span>
-            <span>Postgres</span>
+            <span>MERN</span>
+            <span>MEAN</span>
+            {/* <span>Postgres</span> */}
           </div>
         </div>
       </aside>

@@ -7,7 +7,7 @@ export const NAV_LINKS = [
 ];
 
 export const HERO_DATA = {
-  role: "Senior Full-Stack Developer",
+  role: "Sr. Full-Stack Developer",
   headline: [
     "Building Enterprise SaaS Platforms.",
     "Shipping Multi-Tenant Systems.",

@@ -83,7 +83,7 @@ const Contact = () => {
         });
         if (!response.ok) throw new Error("Failed to send");
         setSent(true);
-        setForm({ name: "", email: "", message: "" });
+        setForm({ message: "" });
         setTimeout(() => setSent(false), 4000);
       } catch {
         setError("Failed to transmit. Please try again.");
@@ -123,7 +123,7 @@ const Contact = () => {
     { label: "Location", value: CONTACT_DATA.location, href: "#" },
     {
       label: "Resume",
-      value: "Download PDF ↓",
+      value: "Download Resume ",
       href: CONTACT_DATA.resume,
       download: true,
     },
@@ -170,10 +170,11 @@ const Contact = () => {
                 style={{
                   fontSize: ".62rem",
                   letterSpacing: "3px",
-                  color: fieldErrors[name] ? "var(--red-mark)" : "var(--accent)",
+                  color: fieldErrors[name] ? "var(--red-mark)" : "orange",
                   textTransform: "uppercase",
                   display: "block",
                   marginBottom: 8,
+                  fontWeight: 700,
                 }}
               >
                 {label}
@@ -203,10 +204,11 @@ const Contact = () => {
               style={{
                 fontSize: ".62rem",
                 letterSpacing: "3px",
-                color: fieldErrors.message ? "var(--red-mark)" : "var(--accent)",
+                color: fieldErrors.message ? "var(--red-mark)" : "orange",
                 textTransform: "uppercase",
                 display: "block",
                 marginBottom: 8,
+                fontWeight: 700,
               }}
             >
               Message
@@ -262,9 +264,10 @@ const Contact = () => {
               left: 16,
               background: "var(--bg)",
               padding: "0 8px",
-              fontSize: ".6rem",
+              fontSize: ".75rem",
+              fontWeight: 700,
               letterSpacing: "3px",
-              color: "var(--accent)",
+              color: "var(--accent2)",
             }}
           >
             CONTACT NODE
@@ -273,12 +276,36 @@ const Contact = () => {
             <div
               key={label}
               style={{
-                padding: "14px 0",
-                borderBottom: "1px dashed rgba(44,100,150,.3)",
+                padding: label === "Resume" ? "16px" : "14px 0",
+                borderBottom: label === "Resume" ? "none" : "1px dashed rgba(44,100,150,.3)",
                 display: "flex",
                 flexDirection: "column",
-                gap: 4,
+                gap: label === "Resume" ? 10 : 4,
+                ...(label === "Resume" && {
+                  background: "rgba(13,33,55,.6)",
+                  border: "1px solid var(--line)",
+                  borderRadius: 8,
+                  marginTop: 10,
+                  cursor: "pointer",
+                  transition: "background .2s, border-color .2s",
+                }),
               }}
+              {...(label === "Resume" && {
+                onMouseEnter: (e) => {
+                  e.currentTarget.style.background = "rgba(57, 255, 20, 0.1)";
+                  e.currentTarget.style.borderColor = "rgba(57, 255, 20, 1)";
+                },
+                onMouseLeave: (e) => {
+                  e.currentTarget.style.background = "rgba(13,33,55,.6)";
+                  e.currentTarget.style.borderColor = "var(--line)";
+                },
+                onClick: () => {
+                  const a = document.createElement("a");
+                  a.href = href;
+                  a.download = "Sr_Developer_Mahboob.pdf";
+                  a.click();
+                },
+              })}
             >
               <span
                 style={{
@@ -293,10 +320,28 @@ const Contact = () => {
               <span style={{ fontSize: ".82rem", color: "var(--accent)" }}>
                 {href === "#" ? (
                   value
+                ) : download ? (
+                  <span style={{ display: "flex", alignItems: "center", gap: 8, color: "rgba(57, 255, 20, 1)" }}>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ animation: "downloadBounce 1.5s ease-in-out infinite" }}
+                    >
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    {value}
+                  </span>
                 ) : (
                   <a
                     href={href}
-                    download={download}
                     style={{ color: "inherit", textDecoration: "none" }}
                     onMouseEnter={(e) =>
                       (e.target.style.textDecoration = "underline")

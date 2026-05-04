@@ -66,3 +66,7 @@ section, nav, footer { position: relative; z-index: 1; }
   box-shadow: 0 0 8px var(--accent);
 }
 
+@media (pointer: coarse) {
+  #cursor-dot, .cursor-dot { display: none !important; }
+}
+

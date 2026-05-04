@@ -88,7 +88,7 @@ const About = () => {
               </span>
               <span
                 style={{
-                  color: green ? "#4caf50" : "var(--white)",
+                  color: green ? "rgba(57, 255, 20, 1)" : "var(--white)",
                   textAlign: "right",
                 }}
               >

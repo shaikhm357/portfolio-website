@@ -11,10 +11,12 @@ createRoot(document.getElementById("root")).render(
 
 // Cursor dot
 const dot = document.getElementById("cursorDot");
-document.addEventListener("mousemove", (e) => {
-  dot.style.left = e.clientX + "px";
-  dot.style.top = e.clientY + "px";
-});
+if (!window.matchMedia("(pointer: coarse)").matches && dot) {
+  document.addEventListener("mousemove", (e) => {
+    dot.style.left = e.clientX + "px";
+    dot.style.top = e.clientY + "px";
+  });
+}
 
 // Scroll reveal
 const reveals = document.querySelectorAll(".reveal");

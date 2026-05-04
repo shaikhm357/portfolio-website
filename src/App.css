@@ -375,6 +375,8 @@ body::before {
   }
 }
 
+.hamburger-btn { display: none; }
+
 @media (max-width: 1024px) {
   .hero-section {
     grid-template-columns: 1fr !important;
@@ -412,7 +414,7 @@ body::before {
   .stack-mobile { flex-direction: column !important; }
   .grid-1-mobile { grid-template-columns: 1fr !important; }
   body { cursor: auto; }
-  #cursor-dot { display: none; }
+  #cursor-dot { display: none !important; }
 
   body::before {
     background-size: 56px 56px, 56px 56px, 14px 14px, 14px 14px;
@@ -422,6 +424,8 @@ body::before {
     padding: 12px 18px !important;
     min-height: 52px;
   }
+
+  .hamburger-btn { display: flex !important; }
 
   .site-brand {
     font-size: .92rem !important;
@@ -620,4 +624,9 @@ body::before {
   .hero-profession-card {
     width: clamp(260px, 82vw, 340px);
   }
+}
+
+@keyframes downloadBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
 }
