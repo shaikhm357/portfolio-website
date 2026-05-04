@@ -16,7 +16,7 @@ const YouTube = () => {
       }}
     >
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <SectionHeader number="04" title="YouTube / Blog" />
+        <SectionHeader number="07" title="YouTube / Blog" />
         <div
           style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}
           className="grid-1-mobile youtube-grid"

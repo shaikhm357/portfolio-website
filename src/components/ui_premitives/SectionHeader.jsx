@@ -1,6 +1,6 @@
 const SectionHeader = ({ number, title }) => {
   return (
-    <div className="section-header reveal" style={{ marginBottom: 60, position: "relative" }}>
+    <div className="section-header" style={{ marginBottom: 60, position: "relative" }}>
       <div
         style={{
           fontSize: ".65rem",

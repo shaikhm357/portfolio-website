@@ -178,9 +178,9 @@ const Contact = () => {
     <section
       id="contact"
       className="page-section"
-      style={{ padding: "100px 40px", maxWidth: 1100, margin: "0 auto" }}
+      style={{ padding: "100px 40px", maxWidth: 1100, margin: "0 auto", display: "block" }}
     >
-      <SectionHeader number="05" title="Contact" />
+      <SectionHeader number="06" title="Contact" />
       <div
         style={{
           display: "grid",

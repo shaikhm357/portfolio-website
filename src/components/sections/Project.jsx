@@ -14,7 +14,7 @@ const Project = () => {
       }}
     >
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <SectionHeader number="03" title="Projects" />
+        <SectionHeader number="04" title="Projects" />
         <div
           style={{
             display: "grid",

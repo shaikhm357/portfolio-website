@@ -4,8 +4,10 @@ import Navbar from "./components/layouts/Navbar";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Experience from "./components/sections/Experience";
+import Clients from "./components/sections/Clients";
 import Project from "./components/sections/Project";
 import Skill from "./components/sections/Skill";
+// import YouTube from "./components/sections/YouTube";
 import Contact from "./components/sections/Contact";
 import Footer from "./components/layouts/Footer";
 import { useScrollReveal } from "./hooks/useScrollReveal";
@@ -28,8 +30,10 @@ const App = () => {
         <Hero />
         <About />
         <Experience />
+        <Clients />
         <Project />
         <Skill />
+        {/* <YouTube /> */}
         <Contact />
       </main>
 
