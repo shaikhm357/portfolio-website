@@ -165,11 +165,10 @@ const Hero = () => {
           className={`hero-title typewriter-title is-${headlinePhase} anim-1`}
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(2.35rem, 4.8vw, 4.35rem)",
             fontWeight: 900,
             color: "var(--white)",
-            lineHeight: 1.1,
-            letterSpacing: "2px",
+            lineHeight: 1.2,
+            letterSpacing: "1px",
           }}
         >
           <span className="typing-text" aria-live="polite">
@@ -178,13 +177,32 @@ const Hero = () => {
           {visibleLength === activeHeadline.length && renderCursor()}
         </h1>
 
+        <div
+          className="hero-divider"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            margin: "32px 0 24px",
+            maxWidth: 480,
+          }}
+        >
+          <div
+            style={{
+              flex: 1,
+              height: 1,
+              background: "linear-gradient(90deg, var(--accent) 0%, rgba(0,229,255,0.15) 100%)",
+              borderRadius: 1,
+            }}
+          />
+        </div>
+
         <p
           className="hero-subtitle anim-2"
           style={{
             fontFamily: "var(--font-editorial)",
             fontSize: "1.1rem",
             color: "var(--text-dim)",
-            margin: "20px 0 32px",
+            margin: "0 0 32px",
             lineHeight: 1.6,
             maxWidth: 580,
           }}
@@ -201,8 +219,8 @@ const Hero = () => {
             marginBottom: 40,
           }}
         >
-          {HERO_DATA.tags.map((t) => (
-            <Tag key={t}>{t}</Tag>
+          {HERO_DATA.tags.map(({ label, color }) => (
+            <Tag key={label} color={color}>{label}</Tag>
           ))}
         </div>
 
@@ -213,7 +231,7 @@ const Hero = () => {
           <Button href="#projects" variant="primary">
             View Projects
           </Button>
-          <Button href={CONTACT_DATA.resume} variant="secondary" download>
+          <Button className="btn-resume" href={CONTACT_DATA.resume} variant="secondary" download style={{ color: "rgba(57, 255, 20, 1)", borderColor: "rgba(57, 255, 20, 1)" }}>
             Download Resume ↓
           </Button>
         </div>

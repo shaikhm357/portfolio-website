@@ -1,5 +1,6 @@
 import SectionHeader from "../ui_premitives/SectionHeader";
 import { SKILLS_DATA } from "../../constants/portfolio";
+import { skillIcons } from "../../constants/skillIcons";
 import { useSkillBars } from "../../hooks/useSkillBars";
 import SkillBar from "../ui_premitives/Skillbar";
 
@@ -20,7 +21,9 @@ const Skill = () => {
         }}
         className="skills-grid"
       >
-        {SKILLS_DATA.map(({ category, items }) => (
+        {SKILLS_DATA.map(({ category, icon, color }) => {
+          const IconComponent = skillIcons[icon];
+          return (
             <div
               key={category}
               className="skill-group skill-card reveal"
@@ -31,6 +34,12 @@ const Skill = () => {
                 position: "relative",
                 overflow: "hidden",
                 transition: "border-color .3s, transform .3s, box-shadow .3s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.querySelectorAll(".skill-bar-fill").forEach((bar, i) => {
+                  const w = bar.getAttribute("data-width");
+                  setTimeout(() => (bar.style.width = w + "%"), i * 80);
+                });
               }}
             >
               <span
@@ -43,7 +52,7 @@ const Skill = () => {
                   height: 0,
                   borderStyle: "solid",
                   borderWidth: "0 28px 28px 0",
-                  borderColor: "transparent var(--accent2) transparent transparent",
+                  borderColor: `transparent ${color || "var(--accent2)"} transparent transparent`,
                   opacity: 0.9,
                   transition: "border-color .3s",
                 }}
@@ -53,8 +62,7 @@ const Skill = () => {
                 style={{
                   position: "absolute",
                   inset: 0,
-                  background:
-                    "linear-gradient(135deg, rgba(79,195,247,.04) 0%, transparent 60%)",
+                  background: `linear-gradient(135deg, ${color || "var(--accent2)"}08 0%, transparent 60%)`,
                   opacity: 0,
                   transition: "opacity .3s",
                   pointerEvents: "none",
@@ -62,22 +70,36 @@ const Skill = () => {
               />
               <div
                 style={{
-                fontSize: ".65rem",
-                letterSpacing: "3px",
-                color: "var(--accent2)",
-                textTransform: "uppercase",
-                marginBottom: 20,
-                paddingBottom: 10,
-                borderBottom: "1px solid var(--line)",
-              }}
-            >
-              {category}
+                  fontSize: ".65rem",
+                  fontWeight: 700,
+                  letterSpacing: "3px",
+                  color: color || "var(--accent2)",
+                  textTransform: "uppercase",
+                  marginBottom: 20,
+                  paddingBottom: 10,
+                  borderBottom: `1px solid ${color}40`,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  textShadow: `0 0 8px ${color}60`,
+                  filter: "brightness(1.3)",
+                }}
+              >
+                {IconComponent && (
+                  <IconComponent
+                    size={18}
+                    style={{ flexShrink: 0, filter: `drop-shadow(0 0 6px ${color})` }}
+                    strokeWidth={3}
+                  />
+                )}
+                {category}
+              </div>
+              {SKILLS_DATA.find((g) => g.category === category).items.map(({ name, pct }) => (
+                <SkillBar key={name} name={name} pct={pct} color={color} />
+              ))}
             </div>
-            {items.map(({ name, pct }) => (
-              <SkillBar key={name} name={name} pct={pct} />
-            ))}
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

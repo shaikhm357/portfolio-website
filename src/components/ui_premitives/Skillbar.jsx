@@ -1,4 +1,4 @@
-const Skillbar = ({ name, pct }) => {
+const Skillbar = ({ name, pct, color }) => {
   return (
     <div style={{ marginBottom: 16 }}>
       <div
@@ -22,7 +22,6 @@ const Skillbar = ({ name, pct }) => {
           overflow: "hidden",
         }}
       >
-        {/* Segment overlay */}
         <span
           style={{
             position: "absolute",
@@ -35,7 +34,7 @@ const Skillbar = ({ name, pct }) => {
             zIndex: 2,
           }}
         />
-        <div className="skill-bar-fill" data-width={pct} />
+        <div className="skill-bar-fill" data-width={pct} style={{ "--bar-color": color }} />
       </div>
     </div>
   );

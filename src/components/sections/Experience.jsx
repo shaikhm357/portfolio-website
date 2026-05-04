@@ -1,5 +1,6 @@
 import SectionHeader from "../ui_premitives/SectionHeader";
 import { EXPERIENCE_DATA } from "../../constants/portfolio";
+import { Milestone } from "lucide-react";
 
 const Experience = () => {
   return (
@@ -136,10 +137,12 @@ const Experience = () => {
                   lineHeight: 1.7,
                 }}
               >
-                {job.points.map((point) => (
-                  <li key={point} style={{ display: "grid", gridTemplateColumns: "18px 1fr", gap: 8 }}>
-                    <span style={{ color: "var(--accent2)" }}>//</span>
-                    <span>{point}</span>
+                {job.points.map(({ text, color }, i) => (
+                  <li key={i} className="exp-point-item" style={{ display: "grid", gridTemplateColumns: "18px 1fr", gap: 8, alignItems: "start" }}>
+                    <span className="milestone-icon" style={{ "--icon-color": color, display: "inline-block", filter: `drop-shadow(0 0 4px var(--icon-color))` }}>
+                      <Milestone size={18} style={{ color: "var(--icon-color)", strokeWidth: 2 }} />
+                    </span>
+                    <span>{text}</span>
                   </li>
                 ))}
               </ul>

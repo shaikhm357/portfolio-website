@@ -34,14 +34,17 @@ const Button = ({
     },
   };
   const combined = { ...base, ...variants[variant] };
-  const className = `btn ${variant === "primary" ? "btn-primary" : "btn-secondary"}`;
+  const className = `btn ${variant === "primary" ? "btn-primary" : "btn-secondary"} ${props.className || ""}`.trim();
+
+  const filteredProps = { ...props };
+  delete filteredProps.className;
 
   return href ? (
-    <a href={href} className={className} style={combined} {...props}>
+    <a href={href} className={className} style={combined} {...filteredProps}>
       {children}
     </a>
   ) : (
-    <button className={className} style={combined} {...props}>
+    <button className={className} style={combined} {...filteredProps}>
       {children}
     </button>
   );

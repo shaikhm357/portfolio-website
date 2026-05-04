@@ -1,8 +1,9 @@
-const Tag = ({ children, style = {} }) => {
+const Tag = ({ children, color, style = {} }) => {
   return (
     <span
       className="tag-el"
       style={{
+        "--tag-neon": color || "var(--accent)",
         padding: "6px 14px",
         border: "1px solid var(--line)",
         fontSize: ".7rem",
@@ -15,7 +16,6 @@ const Tag = ({ children, style = {} }) => {
         ...style,
       }}
     >
-      {/* Blueprint corner marks */}
       <span
         style={{
           position: "absolute",
@@ -23,8 +23,8 @@ const Tag = ({ children, style = {} }) => {
           left: -3,
           width: 6,
           height: 6,
-          borderTop: "1px solid var(--accent)",
-          borderLeft: "1px solid var(--accent)",
+          borderTop: "1px solid var(--tag-neon)",
+          borderLeft: "1px solid var(--tag-neon)",
         }}
       />
       <span
@@ -34,8 +34,8 @@ const Tag = ({ children, style = {} }) => {
           right: -3,
           width: 6,
           height: 6,
-          borderBottom: "1px solid var(--accent)",
-          borderRight: "1px solid var(--accent)",
+          borderBottom: "1px solid var(--tag-neon)",
+          borderRight: "1px solid var(--tag-neon)",
         }}
       />
       {children}

@@ -1,5 +1,5 @@
 const ProjectCard = ({ project }) => {
-  return (
+  const card = (
     <div
       className={`project-card reveal${project.featured ? " project-card-featured" : ""}`}
       style={{
@@ -9,9 +9,12 @@ const ProjectCard = ({ project }) => {
         background: "rgba(13,33,55,.5)",
         overflow: "hidden",
         gridColumn: project.featured ? "1 / -1" : undefined,
+        cursor: project.demo ? "pointer" : undefined,
+      }}
+      onClick={() => {
+        if (project.demo) window.open(project.demo, "_blank");
       }}
     >
-      {/* Corner notch */}
       <span
         className="card-corner"
         style={{
@@ -26,7 +29,6 @@ const ProjectCard = ({ project }) => {
           transition: "border-color .3s",
         }}
       />
-      {/* Hover gradient */}
       <span
         className="card-glow"
         style={{
@@ -73,7 +75,6 @@ const ProjectCard = ({ project }) => {
         {project.desc}
       </p>
 
-      {/* Stack chips */}
       <div
         style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 20 }}
       >
@@ -94,13 +95,13 @@ const ProjectCard = ({ project }) => {
         ))}
       </div>
 
-      {/* Links */}
       <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
         {project.demo ? (
           <a
             href={project.demo}
             target="_blank"
             rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
             style={{
               fontSize: ".7rem",
               letterSpacing: "2px",
@@ -143,6 +144,8 @@ const ProjectCard = ({ project }) => {
       </div>
     </div>
   );
+
+  return card;
 };
 
 export default ProjectCard;
