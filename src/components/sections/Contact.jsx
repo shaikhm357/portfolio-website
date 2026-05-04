@@ -83,7 +83,7 @@ const Contact = () => {
         });
         if (!response.ok) throw new Error("Failed to send");
         setSent(true);
-        setForm({ message: "" });
+        setForm({ name: "", email: "", message: "" });
         setTimeout(() => setSent(false), 4000);
       } catch {
         setError("Failed to transmit. Please try again.");
